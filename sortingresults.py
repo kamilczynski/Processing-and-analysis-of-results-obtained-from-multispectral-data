@@ -5,7 +5,7 @@ import re
 # ŚCIEŻKI
 # =======================
 
-INPUT_CSV = r"C:/Users/topgu/Desktop/Art/OSTATNIE ARTYKULY/ZAGESZCZENIE/WYNIKI zageszczenie/wyniki_dynamika.csv"
+INPUT_CSV = r"C:/Users/topgu/Desktop/Art/OSTATNIE ARTYKULY/ZAGESZCZENIE/WYNIKI zageszczenie/wyniki_dynamikapoprawione.csv"
 OUTPUT_CSV = r"C:/Users/topgu/Desktop/Art/OSTATNIE ARTYKULY/ZAGESZCZENIE/WYNIKI zageszczenie/wyniki_dynamika_SORTED.csv"
 
 
@@ -20,7 +20,7 @@ def parse_name(name):
     shoots = 3
     size = maly / duzy
     """
-    m = re.match(r"(ENRO|POLO)(\d)(maly|duzy)kwadrat", name)
+    m = re.match(r"(Enrosadira|Polonez)\s+(\d)\s+(Bounded|Edges)", name)
     if m:
         cultivar = m.group(1)
         shoots = int(m.group(2))
@@ -43,8 +43,8 @@ df["size"] = parsed.apply(lambda x: x[1])
 df["shoots"] = parsed.apply(lambda x: x[2])
 
 # kolejności niestandardowe
-cultivar_order = {"ENRO": 0, "POLO": 1}
-size_order = {"maly": 0, "duzy": 1}
+cultivar_order = {"Enrosadira": 0, "Polonez": 1}
+size_order = {"Bounded": 0, "Edges": 1}
 
 df["cultivar_ord"] = df["cultivar"].map(cultivar_order)
 df["size_ord"] = df["size"].map(size_order)
