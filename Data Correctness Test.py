@@ -11,5 +11,5 @@ for k,g in df.groupby(GROUP_COLS):
     if s != expected:
         bad.append((k, sorted(s)))
 
-print("liczba grup:", df.groupby(GROUP_COLS).ngroups)
-print("grupy z brakami:", len(bad))
+print("number of groups:", df.groupby(GROUP_COLS).ngroups)
+print("groups with gaps:", len(bad))
