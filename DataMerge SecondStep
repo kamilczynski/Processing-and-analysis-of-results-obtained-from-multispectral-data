@@ -4,14 +4,14 @@ import tkinter as tk
 from tkinter import filedialog, messagebox
 
 def select_input_folder():
-    folder = filedialog.askdirectory(title="Wybierz folder z plikami CSV")
+    folder = filedialog.askdirectory(title="Select the folder with the CSV files")
     if folder:
         input_entry.delete(0, tk.END)
         input_entry.insert(0, folder)
 
 def select_output_file():
     file = filedialog.asksaveasfilename(
-        title="Zapisz wynikowy plik CSV",
+        title="Save the resulting CSV file",
         defaultextension=".csv",
         filetypes=[("CSV", "*.csv")]
     )
@@ -24,10 +24,10 @@ def merge_all():
     output_file = output_entry.get()
 
     if not input_folder:
-        messagebox.showerror("Błąd", "Nie wybrano folderu wejściowego")
+        messagebox.showerror("Error", "No input folder selected")
         return
     if not output_file:
-        messagebox.showerror("Błąd", "Nie wybrano pliku wyjściowego")
+        messagebox.showerror("Error", "No output file selected")
         return
 
     csv_files = [
@@ -36,7 +36,7 @@ def merge_all():
     ]
 
     if not csv_files:
-        messagebox.showerror("Błąd", "Brak plików CSV w folderze")
+        messagebox.showerror("Error", "No CSV files in the folder")
         return
 
     merged = []
@@ -51,10 +51,10 @@ def merge_all():
     final_df.to_csv(output_file, index=False)
 
     messagebox.showinfo(
-        "Gotowe",
-        f"Scalono {len(csv_files)} plików\n"
-        f"Liczba wierszy: {len(final_df)}\n\n"
-        f"Zapisano do:\n{output_file}"
+        "Ready",
+        f"Merged {len(csv_files)} files\n"
+        f"Number of rows: {len(final_df)}\n\n"
+        f"Save to:\n{output_file}"
     )
 
 # =========================
@@ -62,29 +62,29 @@ def merge_all():
 # =========================
 
 root = tk.Tk()
-root.title("Merge wszystkich plików CSV")
+root.title("Merge all CSV files")
 
 frame = tk.Frame(root, padx=10, pady=10)
 frame.pack()
 
 # Folder wejściowy
-tk.Label(frame, text="Folder z plikami CSV:").grid(row=0, column=0, sticky="w")
+tk.Label(frame, text="Folder with CSV files:").grid(row=0, column=0, sticky="w")
 input_entry = tk.Entry(frame, width=60)
 input_entry.grid(row=1, column=0, padx=5, pady=5)
-tk.Button(frame, text="Wybierz folder", command=select_input_folder)\
+tk.Button(frame, text="Select folder", command=select_input_folder)\
     .grid(row=1, column=1, padx=5)
 
 # Plik wyjściowy
-tk.Label(frame, text="Plik wynikowy CSV:").grid(row=2, column=0, sticky="w")
+tk.Label(frame, text="CSV output file:").grid(row=2, column=0, sticky="w")
 output_entry = tk.Entry(frame, width=60)
 output_entry.grid(row=3, column=0, padx=5, pady=5)
-tk.Button(frame, text="Wybierz plik", command=select_output_file)\
+tk.Button(frame, text="Select file", command=select_output_file)\
     .grid(row=3, column=1, padx=5)
 
 # Start
 tk.Button(
     frame,
-    text="Scal wszystko do jednego CSV",
+    text="Merge all into one CSV",
     command=merge_all,
     height=2
 ).grid(row=4, column=0, columnspan=2, pady=15)
