@@ -1,6 +1,6 @@
 import pandas as pd, numpy as np
 
-df = pd.read_csv("C:/Users/topgu/Desktop/Art/OSTATNIE ARTYKULY/ZAGESZCZENIE/WYNIKI zageszczenie/jesiennabigmerge.csv")
+df = pd.read_csv("C:/.csv")
 GROUP_COLS = ["Name","index_name","altitude_m","Type"]
 
 expected = set(range(1,12))
