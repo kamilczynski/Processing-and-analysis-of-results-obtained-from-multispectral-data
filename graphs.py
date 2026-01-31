@@ -9,8 +9,8 @@ import numpy as np
 # --------------------------------
 # PATHS
 # --------------------------------
-DATA_PATH = r"C:\Users\topgu\Desktop\Art\OSTATNIE ARTYKULY\ZAGESZCZENIE\WYNIKI zageszczenie\jesiennabigmerge.csv"
-OUTPUT_DIR = r"C:\Users\topgu\Desktop\Art\OSTATNIE ARTYKULY\ZAGESZCZENIE\WYNIKI zageszczenie\WYKRESY JESIENNA STYCZEN\POCZWORNE JESIENNA ZAGESZCZENIE\GITHUB"
+DATA_PATH = r"C:\.csv"
+OUTPUT_DIR = r"C:\"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # ======================================================
@@ -41,20 +41,35 @@ PALETTE = {
     "Five canes":  "#7D3C98"
 }
 
-INDICES_4 = {
-    "GNDVI":  "(a) GNDVI",
-    "NDRE":   "(b) NDRE",
-    "OSAVI":  "(c) OSAVI",
-    "MCARI2": "(d) MCARI2",
-}
+#INDICES_4 = {
+    #"GNDVI":  "(a) GNDVI",
+    #"NDRE":   "(b) NDRE",
+    #"OSAVI":  "(c) OSAVI",
+   # "MCARI2": "(d) MCARI2",
+#}
 
 # --- Y AXIS CONFIGURATION PER INDEX ---
-Y_AXIS_CONFIG = {
-    "GNDVI":  {"ylim": (0.550, 0.950), "step": 0.050},
-    "NDRE":   {"ylim": (0.100, 0.500), "step": 0.050},
-    "OSAVI":  {"ylim": (0.450, 0.850), "step": 0.050},
-    "MCARI2": {"ylim": (0.500, 1.000), "step": 0.050},
+#Y_AXIS_CONFIG = {
+   # "GNDVI":  {"ylim": (0.550, 0.950), "step": 0.050},
+   # "NDRE":   {"ylim": (0.100, 0.500), "step": 0.050},
+   # "OSAVI":  {"ylim": (0.450, 0.850), "step": 0.050},
+   # "MCARI2": {"ylim": (0.500, 1.000), "step": 0.050},
+#}
+INDICES_4 = {
+    "NDVI":   "(a) NDVI",
+    "MCARI":  "(b) MCARI",
+    "SIPI2":  "(c) SIPI2",
+    "LCI":    "(d) LCI",
 }
+Y_AXIS_CONFIG = {
+    "NDVI":  {"ylim": (0.650, 0.950), "step": 0.050},
+    "MCARI": {"ylim": (0.550, 1.300), "step": 0.150},
+    "SIPI2": {"ylim": (0.850, 1.000), "step": 0.025},
+    "LCI":   {"ylim": (0.250, 0.550), "step": 0.050},
+}
+
+
+
 
 # ======================================================
 # STYLE
