@@ -7,8 +7,8 @@ from scipy.stats import spearmanr
 # KONFIGURACJA DOMYŚLNA
 # =======================
 
-DEFAULT_INPUT_CSV = r"C:/Users/topgu/Desktop/Art/OSTATNIE ARTYKULY/ZAGESZCZENIE/WYNIKI zageszczenie/jesiennabigmerge.csv"
-DEFAULT_OUTPUT_CSV = r"C:/Users/topgu/Desktop/Art/OSTATNIE ARTYKULY/ZAGESZCZENIE/WYNIKI zageszczenie/wyniki_dynamikapoprawione.csv"
+DEFAULT_INPUT_CSV = r"C:/.csv"
+DEFAULT_OUTPUT_CSV = r"C:/.csv"
 
 EPS = 1e-6
 
