@@ -13,5 +13,5 @@ condenses raw imagery into interpretable metrics, it produces a substantial volu
 interpretation is critical, especially in long-term studies.</p>
 
 <p align="center">
-  <img src="results_analysis_scheme.png.png" alt="results_analysis_scheme.png.png" width="800"/>
+  <img src="results_analysis_scheme.png" alt="results_analysis_scheme.png" width="800"/>
 </p>
