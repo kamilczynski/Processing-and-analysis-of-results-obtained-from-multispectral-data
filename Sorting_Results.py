@@ -2,7 +2,7 @@ import pandas as pd
 import re
 
 # =======================
-# ŚCIEŻKI
+# PATHS
 # =======================
 
 INPUT_CSV = r"C:/Users/topgu/Desktop/Art/OSTATNIE ARTYKULY/ZAGESZCZENIE/WYNIKI zageszczenie/wyniki_dynamikapoprawione.csv"
@@ -10,7 +10,7 @@ OUTPUT_CSV = r"C:/Users/topgu/Desktop/Art/OSTATNIE ARTYKULY/ZAGESZCZENIE/WYNIKI 
 
 
 # =======================
-# FUNKCJE POMOCNICZE
+# AUXILIARY FUNCTIONS
 # =======================
 
 def parse_name(name):
@@ -31,37 +31,37 @@ def parse_name(name):
 
 
 # =======================
-# SORTOWANIE
+# SORT
 # =======================
 
 df = pd.read_csv(INPUT_CSV)
 
-# rozbij Name na kolumny logiczne
+# break Name into logical columns
 parsed = df["Name"].apply(parse_name)
 df["cultivar"] = parsed.apply(lambda x: x[0])
 df["size"] = parsed.apply(lambda x: x[1])
 df["shoots"] = parsed.apply(lambda x: x[2])
 
-# kolejności niestandardowe
+# custom orders
 cultivar_order = {"Enrosadira": 0, "Polonez": 1}
 size_order = {"Bounded": 0, "Edges": 1}
 
 df["cultivar_ord"] = df["cultivar"].map(cultivar_order)
 df["size_ord"] = df["size"].map(size_order)
 
-# SORT KLUCZOWY
+# KEY SORTS
 df_sorted = df.sort_values(
     by=[
-        "index_name",      # wskaźnik
-        "altitude_m",      # pułap
-        "Type",            # metoda adnotacji
+        "index_name",      # index
+        "altitude_m",      # pitch
+        "Type",            # annotation method
         "cultivar_ord",    # ENRO → POLO
-        "size_ord",        # mały → duży
+        "size_ord",        # bounded → edges
         "shoots"           # 2 → 5
     ]
 )
 
-# sprzątanie
+# clean
 df_sorted = df_sorted.drop(columns=[
     "cultivar", "size", "shoots",
     "cultivar_ord", "size_ord"
