@@ -39,3 +39,189 @@ However, this procedure is not strictly required in all cases.</p>
 <p align="justify">In addition, the DataCorrectness_Test.py script is used to verify the integrity of the final merged dataset with
   respect to potential missing values, while the Sorting_Results.py script allows the results to be organized into a more logical and 
   structured format.</p>
+
+  ## Temporal metrics derived from vegetation index time series
+
+Let
+
+y = {y₁, y₂, …, y_N}
+
+be the time series of mean vegetation index values, where  
+yᵢ is the mean vegetation index value at measurement i, and  
+N is the total number of measurement dates.
+
+Temporal differences are defined as:
+
+Δᵢ = yᵢ₊₁ − yᵢ,   for i = 1, …, N − 1
+
+Absolute differences:
+
+|Δᵢ| = |yᵢ₊₁ − yᵢ|
+
+A small constant ε = 1e−6 is used to avoid division by zero.
+
+---
+
+### 1. Mean vegetation index value (Mean_index)
+
+Mean_index = (1 / N) · Σᵢ₌₁ᴺ yᵢ
+
+**Description:**  
+Arithmetic mean of the vegetation index time series.
+
+---
+
+### 2. Temporal standard deviation (SD_index)
+
+SD_index = sqrt( (1 / (N − 1)) · Σᵢ₌₁ᴺ (yᵢ − Mean_index)² )
+
+**Description:**  
+Absolute temporal variability of the vegetation index time series.
+
+---
+
+### 3. Temporal coefficient of variation (CV_index)
+
+CV_index = SD_index / Mean_index
+
+**Description:**  
+Relative temporal variability expressed as the ratio of standard deviation to mean.
+
+---
+
+### 4. Total absolute temporal amplitude (A_total)
+
+A_total = Σᵢ₌₁ᴺ⁻¹ |Δᵢ|
+
+**Description:**  
+Cumulative magnitude of absolute changes between consecutive measurements.
+
+---
+
+### 5. Total positive temporal change (A_growth)
+
+A_growth = Σᵢ₌₁ᴺ⁻¹ max(Δᵢ, 0)
+
+**Description:**  
+Cumulative magnitude of all positive temporal changes.
+
+---
+
+### 6. Total negative temporal change (A_drop)
+
+A_drop = Σᵢ₌₁ᴺ⁻¹ max(−Δᵢ, 0)
+
+**Description:**  
+Cumulative magnitude of all negative temporal changes.
+
+---
+
+### 7. Total relative temporal amplitude (A_pct_total)
+
+A_pct_total = Σᵢ₌₁ᴺ⁻¹ |Δᵢ / (yᵢ + ε)|
+
+**Description:**  
+Sum of absolute relative changes between consecutive measurements.
+
+---
+
+### 8. Total relative positive change (A_pct_growth)
+
+A_pct_growth = Σᵢ₌₁ᴺ⁻¹ max(Δᵢ / (yᵢ + ε), 0)
+
+**Description:**  
+Cumulative relative magnitude of all positive changes.
+
+---
+
+### 9. Total relative negative change (A_pct_drop)
+
+A_pct_drop = Σᵢ₌₁ᴺ⁻¹ max(−Δᵢ / (yᵢ + ε), 0)
+
+**Description:**  
+Cumulative relative magnitude of all negative changes.
+
+---
+
+### 10. Number of positive changes (n_growth)
+
+n_growth = Σᵢ₌₁ᴺ⁻¹ I(Δᵢ > 0)
+
+**Description:**  
+Number of intervals with a positive temporal change.
+
+---
+
+### 11. Number of negative changes (n_drop)
+
+n_drop = Σᵢ₌₁ᴺ⁻¹ I(Δᵢ < 0)
+
+**Description:**  
+Number of intervals with a negative temporal change.
+
+---
+
+### 12. Temporal roughness (J_roughness)
+
+J_roughness = Σᵢ₌₁ᴺ⁻² |Δᵢ₊₁ − Δᵢ|
+
+**Description:**  
+Second-order temporal variability describing irregularity in change rates.
+
+---
+
+### 13. Concentration of temporal changes (C_concentration)
+
+First, normalized absolute changes:
+
+pᵢ = |Δᵢ| / A_total
+
+Then:
+
+C_concentration = Σᵢ₌₁ᴺ⁻¹ pᵢ²
+
+**Description:**  
+Measure of how temporal changes are concentrated across intervals; higher values indicate that changes are dominated by fewer intervals.
+
+---
+
+### 14. Normalized total temporal amplitude (A_u_margin)
+
+For each interval:
+
+uᵢ =
+- Δᵢ / (1 − yᵢ + ε), if Δᵢ > 0  
+- (−Δᵢ) / (yᵢ + ε), if Δᵢ < 0
+
+Then:
+
+A_u_margin = Σᵢ₌₁ᴺ⁻¹ uᵢ
+
+**Description:**  
+Total temporal change normalized relative to the available index range [0, 1].
+
+---
+
+### 15. Normalized temporal roughness (J_u_margin)
+
+J_u_margin = Σᵢ₌₁ᴺ⁻² |uᵢ₊₁ − uᵢ|
+
+**Description:**  
+Irregularity of normalized temporal changes accounting for proximity to index bounds.
+
+---
+
+### 16. Level–motion correlation (K_level_motion)
+
+Define:
+
+mᵢ = (yᵢ + yᵢ₊₁) / 2  
+aᵢ = |Δᵢ|
+
+Then:
+
+K_level_motion = SpearmanCorr(mᵢ, aᵢ)
+
+**Description:**  
+Spearman rank correlation between local index level and magnitude of temporal change, indicating whether stronger changes occur at higher or lower index values.
+
