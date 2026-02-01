@@ -40,188 +40,240 @@ However, this procedure is not strictly required in all cases.</p>
   respect to potential missing values, while the Sorting_Results.py script allows the results to be organized into a more logical and 
   structured format.</p>
 
-  ## Temporal metrics derived from vegetation index time series
+ # Temporal vegetation index metrics
 
 Let
 
-y = {y₁, y₂, …, y_N}
+$$
+\mathbf{y} = \{ y_1, y_2, \dots, y_N \}
+$$
 
-be the time series of mean vegetation index values, where  
-yᵢ is the mean vegetation index value at measurement i, and  
-N is the total number of measurement dates.
+be a time series of **mean vegetation index values**, where:
 
-Temporal differences are defined as:
+- $y_i$ — mean vegetation index value at measurement $i$
+- $N$ — total number of measurement dates
 
-Δᵢ = yᵢ₊₁ − yᵢ,   for i = 1, …, N − 1
+Temporal differences between consecutive measurements are defined as:
+
+$$
+\Delta_i = y_{i+1} - y_i \quad \text{for } i = 1, \dots, N-1
+$$
 
 Absolute differences:
 
-|Δᵢ| = |yᵢ₊₁ − yᵢ|
+$$
+|\Delta_i| = |y_{i+1} - y_i|
+$$
 
-A small constant ε = 1e−6 is used to avoid division by zero.
+A small constant
+
+$$
+\varepsilon = 10^{-6}
+$$
+
+is used to avoid division by zero.
 
 ---
 
-### 1. Mean vegetation index value (Mean_index)
+## 1. Mean vegetation index value (`Mean_index`)
 
-Mean_index = (1 / N) · Σᵢ₌₁ᴺ yᵢ
+$$
+\bar{y} = \frac{1}{N} \sum_{i=1}^{N} y_i
+$$
 
 **Description:**  
 Arithmetic mean of the vegetation index time series.
 
 ---
 
-### 2. Temporal standard deviation (SD_index)
+## 2. Temporal standard deviation (`SD_index`)
 
-SD_index = sqrt( (1 / (N − 1)) · Σᵢ₌₁ᴺ (yᵢ − Mean_index)² )
+$$
+SD_y = \sqrt{\frac{1}{N-1} \sum_{i=1}^{N} (y_i - \bar{y})^2}
+$$
 
 **Description:**  
-Absolute temporal variability of the vegetation index time series.
+Standard deviation of vegetation index values across time, describing absolute temporal variability.
 
 ---
 
-### 3. Temporal coefficient of variation (CV_index)
+## 3. Temporal coefficient of variation (`CV_index`)
 
-CV_index = SD_index / Mean_index
+$$
+CV_y = \frac{SD_y}{\bar{y}}
+$$
 
 **Description:**  
-Relative temporal variability expressed as the ratio of standard deviation to mean.
+Relative temporal variability of the vegetation index, expressed as the ratio between standard deviation and mean.
 
 ---
 
-### 4. Total absolute temporal amplitude (A_total)
+## 4. Total absolute temporal amplitude (`A_total`)
 
-A_total = Σᵢ₌₁ᴺ⁻¹ |Δᵢ|
+$$
+A = \sum_{i=1}^{N-1} |\Delta_i|
+$$
 
 **Description:**  
 Cumulative magnitude of absolute changes between consecutive measurements.
 
 ---
 
-### 5. Total positive temporal change (A_growth)
+## 5. Total positive temporal change (`A_growth`)
 
-A_growth = Σᵢ₌₁ᴺ⁻¹ max(Δᵢ, 0)
+$$
+G = \sum_{i=1}^{N-1} \max(\Delta_i, 0)
+$$
 
 **Description:**  
-Cumulative magnitude of all positive temporal changes.
+Sum of all positive changes in the vegetation index time series.
 
 ---
 
-### 6. Total negative temporal change (A_drop)
+## 6. Total negative temporal change (`A_drop`)
 
-A_drop = Σᵢ₌₁ᴺ⁻¹ max(−Δᵢ, 0)
+$$
+D = \sum_{i=1}^{N-1} \max(-\Delta_i, 0)
+$$
 
 **Description:**  
-Cumulative magnitude of all negative temporal changes.
+Sum of absolute values of all negative changes in the vegetation index time series.
 
 ---
 
-### 7. Total relative temporal amplitude (A_pct_total)
+## 7. Total relative temporal amplitude (`A_pct_total`)
 
-A_pct_total = Σᵢ₌₁ᴺ⁻¹ |Δᵢ / (yᵢ + ε)|
+$$
+A_{\%} = \sum_{i=1}^{N-1} \left| \frac{\Delta_i}{y_i + \varepsilon} \right|
+$$
 
 **Description:**  
-Sum of absolute relative changes between consecutive measurements.
+Sum of absolute relative changes between consecutive measurements, normalised by the preceding value.
 
 ---
 
-### 8. Total relative positive change (A_pct_growth)
+## 8. Total relative positive change (`A_pct_growth`)
 
-A_pct_growth = Σᵢ₌₁ᴺ⁻¹ max(Δᵢ / (yᵢ + ε), 0)
+$$
+G_{\%} = \sum_{i=1}^{N-1} \max\!\left( \frac{\Delta_i}{y_i + \varepsilon}, 0 \right)
+$$
 
 **Description:**  
-Cumulative relative magnitude of all positive changes.
+Cumulative relative magnitude of all positive temporal changes.
 
 ---
 
-### 9. Total relative negative change (A_pct_drop)
+## 9. Total relative negative change (`A_pct_drop`)
 
-A_pct_drop = Σᵢ₌₁ᴺ⁻¹ max(−Δᵢ / (yᵢ + ε), 0)
+$$
+D_{\%} = \sum_{i=1}^{N-1} \max\!\left( \frac{-\Delta_i}{y_i + \varepsilon}, 0 \right)
+$$
 
 **Description:**  
-Cumulative relative magnitude of all negative changes.
+Cumulative relative magnitude of all negative temporal changes.
 
 ---
 
-### 10. Number of positive changes (n_growth)
+## 10. Number of positive changes (`n_growth`)
 
-n_growth = Σᵢ₌₁ᴺ⁻¹ I(Δᵢ > 0)
+$$
+n_{+} = \sum_{i=1}^{N-1} \mathbf{1}(\Delta_i > 0)
+$$
 
 **Description:**  
-Number of intervals with a positive temporal change.
+Number of consecutive measurement intervals with a positive vegetation index change.
 
 ---
 
-### 11. Number of negative changes (n_drop)
+## 11. Number of negative changes (`n_drop`)
 
-n_drop = Σᵢ₌₁ᴺ⁻¹ I(Δᵢ < 0)
+$$
+n_{-} = \sum_{i=1}^{N-1} \mathbf{1}(\Delta_i < 0)
+$$
 
 **Description:**  
-Number of intervals with a negative temporal change.
+Number of consecutive measurement intervals with a negative vegetation index change.
 
 ---
 
-### 12. Temporal roughness (J_roughness)
+## 12. Temporal roughness (`J_roughness`)
 
-J_roughness = Σᵢ₌₁ᴺ⁻² |Δᵢ₊₁ − Δᵢ|
+$$
+J = \sum_{i=1}^{N-2} |\Delta_{i+1} - \Delta_i|
+$$
 
 **Description:**  
-Second-order temporal variability describing irregularity in change rates.
+Sum of absolute second-order differences, quantifying irregularity in the rate of temporal change.
 
 ---
 
-### 13. Concentration of temporal changes (C_concentration)
+## 13. Concentration of temporal changes (`C_concentration`)
 
-First, normalized absolute changes:
+First, normalised absolute changes:
 
-pᵢ = |Δᵢ| / A_total
+$$
+p_i = \frac{|\Delta_i|}{A}
+$$
 
 Then:
 
-C_concentration = Σᵢ₌₁ᴺ⁻¹ pᵢ²
+$$
+C = \sum_{i=1}^{N-1} p_i^2
+$$
 
 **Description:**  
-Measure of how temporal changes are concentrated across intervals; higher values indicate that changes are dominated by fewer intervals.
+Measure of how temporal changes are distributed across time; higher values indicate that changes are concentrated in fewer intervals.
 
 ---
 
-### 14. Normalized total temporal amplitude (A_u_margin)
+## 14. Normalised total temporal amplitude (`A_u_margin`)
 
 For each interval:
 
-uᵢ =
-- Δᵢ / (1 − yᵢ + ε), if Δᵢ > 0  
-- (−Δᵢ) / (yᵢ + ε), if Δᵢ < 0
+$$
+u_i =
+\begin{cases}
+\dfrac{\Delta_i}{1 - y_i + \varepsilon}, & \text{if } \Delta_i > 0 \\
+\dfrac{-\Delta_i}{y_i + \varepsilon}, & \text{if } \Delta_i < 0
+\end{cases}
+$$
 
 Then:
 
-A_u_margin = Σᵢ₌₁ᴺ⁻¹ uᵢ
+$$
+A_u = \sum_{i=1}^{N-1} u_i
+$$
 
 **Description:**  
-Total temporal change normalized relative to the available index range [0, 1].
+Total temporal change normalised relative to the available vegetation index range $[0,1]$.
 
 ---
 
-### 15. Normalized temporal roughness (J_u_margin)
+## 15. Normalised temporal roughness (`J_u_margin`)
 
-J_u_margin = Σᵢ₌₁ᴺ⁻² |uᵢ₊₁ − uᵢ|
+$$
+J_u = \sum_{i=1}^{N-2} |u_{i+1} - u_i|
+$$
 
 **Description:**  
-Irregularity of normalized temporal changes accounting for proximity to index bounds.
+Irregularity of temporal dynamics after normalisation to index bounds.
 
 ---
 
-### 16. Level–motion correlation (K_level_motion)
+## 16. Level–motion correlation (`K_level_motion`)
 
 Define:
 
-mᵢ = (yᵢ + yᵢ₊₁) / 2  
-aᵢ = |Δᵢ|
+$$
+m_i = \frac{y_i + y_{i+1}}{2}, \quad a_i = |\Delta_i|
+$$
 
 Then:
 
-K_level_motion = SpearmanCorr(mᵢ, aᵢ)
+$$
+K = \rho_{\text{Spearman}}(m_i, a_i)
+$$
 
 **Description:**  
-Spearman rank correlation between local index level and magnitude of temporal change, indicating whether stronger changes occur at higher or lower index values.
+Spearman rank correlation between local vegetation index level and magnitude of temporal change, indicating whether larger changes occur at higher or lower index values.
 
