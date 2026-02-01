@@ -155,7 +155,7 @@ Sum of absolute relative changes between consecutive measurements, normalised by
 ## 8. Total relative positive change (`A_pct_growth`)
 
 $$
-G_{\%} = \sum_{i=1}^{N-1} \max\!\left( \frac{\Delta_i}{y_i + \varepsilon}, 0 \right)
+G_{\%} = \sum_{i=1}^{N-1} \max\left( \frac{\Delta_i}{y_i + \varepsilon}, 0 \right)
 $$
 
 **Description:**  
@@ -166,7 +166,7 @@ Cumulative relative magnitude of all positive temporal changes.
 ## 9. Total relative negative change (`A_pct_drop`)
 
 $$
-D_{\%} = \sum_{i=1}^{N-1} \max\!\left( \frac{-\Delta_i}{y_i + \varepsilon}, 0 \right)
+D_{\%} = \sum_{i=1}^{N-1} \max\left( \frac{-\Delta_i}{y_i + \varepsilon}, 0 \right)
 $$
 
 **Description:**  
