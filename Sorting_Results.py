@@ -5,8 +5,8 @@ import re
 # PATHS
 # =======================
 
-INPUT_CSV = r"C:/Users/topgu/Desktop/Art/OSTATNIE ARTYKULY/ZAGESZCZENIE/WYNIKI zageszczenie/wyniki_dynamikapoprawione.csv"
-OUTPUT_CSV = r"C:/Users/topgu/Desktop/Art/OSTATNIE ARTYKULY/ZAGESZCZENIE/WYNIKI zageszczenie/wyniki_dynamika_SORTED.csv"
+INPUT_CSV = r"C:/.csv"
+OUTPUT_CSV = r"C:/.csv"
 
 
 # =======================
