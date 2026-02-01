@@ -144,7 +144,7 @@ Sum of absolute values of all negative changes in the vegetation index time seri
 ## 7. Total relative temporal amplitude (`A_pct_total`)
 
 $$
-A_{\%} = \sum_{i=1}^{N-1} \left| \frac{\Delta_i}{y_i + \varepsilon} \right|
+A_{\mathrm{rel}} = \sum_{i=1}^{N-1} \left| \frac{\Delta_i}{y_i + \varepsilon} \right|
 $$
 
 **Description:**  
@@ -155,7 +155,7 @@ Sum of absolute relative changes between consecutive measurements, normalised by
 ## 8. Total relative positive change (`A_pct_growth`)
 
 $$
-G_{\%} = \sum_{i=1}^{N-1} \max\left( \frac{\Delta_i}{y_i + \varepsilon}, 0 \right)
+G_{\mathrm{rel}} = \sum_{i=1}^{N-1} \max\left( \frac{\Delta_i}{y_i + \varepsilon}, 0 \right)
 $$
 
 **Description:**  
@@ -166,8 +166,9 @@ Cumulative relative magnitude of all positive temporal changes.
 ## 9. Total relative negative change (`A_pct_drop`)
 
 $$
-D_{\%} = \sum_{i=1}^{N-1} \max\left( \frac{-\Delta_i}{y_i + \varepsilon}, 0 \right)
+D_{\mathrm{rel}} = \sum_{i=1}^{N-1} \max\left( \frac{-\Delta_i}{y_i + \varepsilon}, 0 \right)
 $$
+
 
 **Description:**  
 Cumulative relative magnitude of all negative temporal changes.
